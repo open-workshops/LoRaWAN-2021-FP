@@ -1,9 +1,8 @@
 #include <Arduino.h>
 /*
-  P1: Práctica de LoRa P2P (Transmisor)
+  P1: Práctica de LoRa P2P (Receptor)
   
-  Este ejemplo permite enviar tramas de LoRa a bajo nivel.
-
+  Este ejemplo permite recibir ñas tramas de LoRa enviadas por el transmisor.
 */
 
 #include <RadioLib.h>
@@ -19,7 +18,7 @@ void setup()
 {
   Serial.begin(115200);
   delay(4000); // esperamos a que el minitor serial este listo
-
+  
   // initialize SX1278 with default settings
   Serial.print("Inicializando... ");
 
@@ -38,27 +37,39 @@ void setup()
     Serial.println(state);
     while (true);
   }
+
+  
+  Serial.print(F("Escuchando a la espera de una transmisión ... "));
 }
 
-void loop()
-{
-  Serial.print(F("Transmitiendo paquete... "));
+void loop() {
+  
 
-  //String datos = "ESCRIBE AQUI TU NOMBRE";
-  int state = radio.transmit(datos);
-
+  String str;
+  int state = radio.receive(str);
 
   if (state == ERR_NONE)
   {
-    Serial.println(F(" ENVIADO!"));
+    Serial.println(F("Recibido!"));
 
-  }
-  else
+    Serial.print(F("Data:\t\t\t"));
+    Serial.println(str);
+
+    Serial.print(F("RSSI:\t\t\t"));
+    Serial.print(radio.getRSSI());
+    Serial.println(F(" dBm"));
+
+    Serial.print(F("SNR:\t\t\t"));
+    Serial.print(radio.getSNR());
+    Serial.println(F(" dB"));
+
+    Serial.print(F("Escuchando a la espera de una transmisión ... "));
+  } 
+  else if (state != ERR_RX_TIMEOUT)
   {
     Serial.print(F("Error, codigo: "));
     Serial.println(state);
-  }
 
-  // esperamos 5 segundos y transmitimos de nuevo
-  delay(5000);
+    Serial.print(F("Escuchando a la espera de una transmisión ... "));
+  }
 }
