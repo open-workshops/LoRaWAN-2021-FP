@@ -49,7 +49,6 @@ void loop()
   if (state == ERR_NONE)
   {
     Serial.println(" ENVIADO!");
-
   }
   else
   {
