@@ -1,10 +1,9 @@
-#include <Arduino.h>
-/*
+/*******************************************************************************
   P1: Práctica de LoRa P2P (Receptor)
   
   Este ejemplo permite recibir las tramas de LoRa enviadas por el transmisor.
-*/
-
+ ******************************************************************************/
+#include <Arduino.h>
 #include <RadioLib.h>
 
 // Transceptor LoRa conectado en la placa Heltec LoRa32 en los pines:
@@ -17,7 +16,7 @@ SX1276 radio = new Module(SS, DIO0, RST_LoRa, DIO1);
 void setup()
 {
   Serial.begin(115200);
-  delay(4000); // esperamos a que el minitor serial este listo
+  delay(4000); // esperamos a que el monitor serial este listo
   
   // inicializar SX1276 con los parametros por defecto
   Serial.print("Inicializando... ");
@@ -37,39 +36,35 @@ void setup()
     Serial.println(state);
     while (true);
   }
-
-  
-  Serial.print(F("Escuchando a la espera de una transmisión ... "));
+  Serial.print("Escuchando a la espera de una transmisión... ");
 }
 
 void loop() {
-  
-
   String str;
   int state = radio.receive(str);
 
   if (state == ERR_NONE)
   {
-    Serial.println(F("Recibido!"));
+    Serial.println("Recibido!");
 
-    Serial.print(F("Data:\t\t\t"));
+    Serial.print("Data:\t\t\t");
     Serial.println(str);
 
-    Serial.print(F("RSSI:\t\t\t"));
+    Serial.print("RSSI:\t\t\t");
     Serial.print(radio.getRSSI());
-    Serial.println(F(" dBm"));
+    Serial.println(" dBm");
 
-    Serial.print(F("SNR:\t\t\t"));
+    Serial.print("SNR:\t\t\t");
     Serial.print(radio.getSNR());
-    Serial.println(F(" dB"));
+    Serial.println(" dB");
 
-    Serial.print(F("Escuchando a la espera de una transmisión ... "));
+    Serial.print("Escuchando a la espera de una transmisión ... ");
   } 
   else if (state != ERR_RX_TIMEOUT)
   {
-    Serial.print(F("Error, codigo: "));
+    Serial.print("Error, codigo: ");
     Serial.println(state);
 
-    Serial.print(F("Escuchando a la espera de una transmisión ... "));
+    Serial.print("Escuchando a la espera de una transmisión ... ");
   }
 }

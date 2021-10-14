@@ -1,11 +1,9 @@
-#include <Arduino.h>
-/*
+/*******************************************************************************
   P1: Práctica de LoRa P2P (Transmisor)
   
   Este ejemplo permite enviar tramas de LoRa a bajo nivel.
-
-*/
-
+ ******************************************************************************/
+#include <Arduino.h>
 #include <RadioLib.h>
 
 // Transceptor LoRa conectado en la placa Heltec LoRa32 en los pines:
@@ -26,7 +24,7 @@ void setup()
   // Freq: 868.0
   // Bandwidth: 125
   // Spreading factor: 7
-  int state = radio.begin(868.2, 125, 7);
+  int state = radio.begin(868.0, 125, 7);
 
   if (state == ERR_NONE)
   {
@@ -42,20 +40,20 @@ void setup()
 
 void loop()
 {
-  Serial.print(F("Transmitiendo paquete... "));
+  Serial.print("Transmitiendo paquete... ");
 
-  //String datos = "ESCRIBE AQUI TU NOMBRE";
+  String datos = "ESCRIBE AQUI TU NOMBRE";
   int state = radio.transmit(datos);
 
 
   if (state == ERR_NONE)
   {
-    Serial.println(F(" ENVIADO!"));
+    Serial.println(" ENVIADO!");
 
   }
   else
   {
-    Serial.print(F("Error, codigo: "));
+    Serial.print("Error, codigo: ");
     Serial.println(state);
   }
 
