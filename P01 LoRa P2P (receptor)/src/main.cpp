@@ -2,30 +2,30 @@
 /*
   P1: Práctica de LoRa P2P (Receptor)
   
-  Este ejemplo permite recibir ñas tramas de LoRa enviadas por el transmisor.
+  Este ejemplo permite recibir las tramas de LoRa enviadas por el transmisor.
 */
 
 #include <RadioLib.h>
 
-// SX1278 has the following connections:
+// Transceptor LoRa conectado en la placa Heltec LoRa32 en los pines:
 // NSS pin:   SS = 18
 // DIO0 pin:  DIO0 = 26
 // RESET pin: RST_LoRa = 14
 // DIO1 pin:  DIO1 = 35
-SX1278 radio = new Module(SS, DIO0, RST_LoRa, DIO1);
+SX1276 radio = new Module(SS, DIO0, RST_LoRa, DIO1);
 
 void setup()
 {
   Serial.begin(115200);
   delay(4000); // esperamos a que el minitor serial este listo
   
-  // initialize SX1278 with default settings
+  // inicializar SX1276 con los parametros por defecto
   Serial.print("Inicializando... ");
 
-  // Freq: 434.0
+  // Freq: 868.0
   // Bandwidth: 125
   // Spreading factor: 7
-  int state = radio.begin(434.0, 125, 7);
+  int state = radio.begin(868.0, 125, 7);
 
   if (state == ERR_NONE)
   {
