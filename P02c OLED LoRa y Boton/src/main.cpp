@@ -1,7 +1,21 @@
+/*******************************************************************************
+  P02C: Práctica de LoRa P2P con botón y pantalla OLED
+  
+  Este ejemplo permite recibir y enviar tramas LoRa utilizando boton y pantalla
+  -Pulsando un botón externo se envía una trama LoRa.
+  -Pulsando el botón PROG de la placa Heltec se incrementa el Spreading Factor.
+  -La placa está siempre escuchando por una posible trama LoRa.
+  -En la pantalla se proporciona información.
+
+  Conexiones:
+  Botón           Placa Heltec LoRa32
+  Pin -     ----- Pin GND
+  Pin medio ----- Pin 3V3
+  Pin S     ----- Pin 23
+*******************************************************************************/
 #include <Arduino.h>
 #include <RadioLib.h>
 #include <SSD1306Wire.h>
-
 
 SSD1306Wire display(0x3c, SDA_OLED, SCL_OLED); 
 SX1276 radio = new Module(SS, DIO0, RST_LoRa, DIO1);
@@ -15,12 +29,12 @@ volatile bool receivedFlag = false;
 volatile bool enableInterrupt = true;
 
 // Función manejadora de la interrupción
-// Esta funcion deber ser voy y no debe contener delays ni prints!
+// Esta funcion deber ser void y no debe contener delays ni prints!
 void setFlag(void) {
-  if(!enableInterrupt) {
+  if(!enableInterrupt) 
+  {
     return;
   }
-
   receivedFlag = true;
 }
 
@@ -90,7 +104,8 @@ void setup() {
 }
 
 void loop() {
-  if(receivedFlag) {
+  if(receivedFlag) 
+  {
     // desactivamos la interrupción mientras procesamos los datos
     enableInterrupt = false;
 
@@ -100,7 +115,8 @@ void loop() {
     String str;
     int state = radio.readData(str);
 
-    if (state == ERR_NONE) {
+    if (state == ERR_NONE)
+    {
       Serial.println("Paquete recibido!");
 
       Serial.print("Data:\t\t\t");
@@ -126,7 +142,8 @@ void loop() {
       display.setFont(ArialMT_Plain_16);
       display.drawString(128/2, 64/2-16/2, "Escuchando...");
       display.display();
-    } else {
+    } else 
+    {
       Serial.print("Error, codigo: ");
       Serial.println(state);
     }
@@ -138,7 +155,8 @@ void loop() {
     enableInterrupt = true;
   }
 
-  if (!digitalRead(BUTTON_PIN)) {
+  if (!digitalRead(BUTTON_PIN)) 
+  {
     enableInterrupt = false;
 
     String datos = "ESCRIBE AQUI TU NOMBRE";
@@ -170,7 +188,8 @@ void loop() {
     display.display();
   }
 
-  if (!digitalRead(KEY_BUILTIN)) {
+  if (!digitalRead(KEY_BUILTIN))
+  {
     if (++currentSF > 12)
       currentSF = 7;
 
