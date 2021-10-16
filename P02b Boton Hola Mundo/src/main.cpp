@@ -1,6 +1,18 @@
+/*******************************************************************************
+  P02B: Práctica botón y pantalla OLED
+  
+  Este ejemplo permite comprobar el funcionamiento de los botones y pantalla.
+  -Pulsando un boton externo se muestra en pantalla.
+  -Pulsando el botón PROG se muestra en pantalla.
+
+  Conexiones:
+  Botón           Placa Heltec LoRa32
+  Pin -     ----- Pin GND
+  Pin medio ----- Pin 3V3
+  Pin S     ----- Pin 23
+*******************************************************************************/
 #include <Arduino.h>
 #include <SSD1306Wire.h>
-
 
 SSD1306Wire display(0x3c, SDA_OLED, SCL_OLED); 
 
@@ -39,16 +51,16 @@ void setup() {
 
 void loop() {
 
-  if (!digitalRead(BUTTON_PIN)) {
+  if (!digitalRead(BUTTON_PIN)) 
+  {
     Serial.println("Boton externo pulsado!");
     // Actualizamos pantalla
     display.clear();
     display.setFont(ArialMT_Plain_10);
     display.drawString(128/2, 64/2-16/2, "Boton externo pulsado!");
     display.display();
-    
-    
-    delay(3000); // esperamos un poco para evitar rebotes del boton y ver pantalla
+
+    delay(3000); // esperamos un poco para evitar rebotes del botón y ver pantalla
 
     // Actualizamos pantalla
     display.clear();
@@ -57,15 +69,15 @@ void loop() {
     display.display();
   }
 
-  if (!digitalRead(KEY_BUILTIN)) {
+  if (!digitalRead(KEY_BUILTIN))
+  {
     // Actualizamos pantalla
     Serial.println("Boton integrado pulsado!");
     display.clear();
     display.setFont(ArialMT_Plain_10);
     display.drawString(128/2, 64/2-16/2, "Boton integrado pulsado!");
     display.display();
-    
-    
+
     delay(3000); // esperamos un poco para evitar rebotes del boton y ver pantalla
 
     // Actualizamos pantalla
