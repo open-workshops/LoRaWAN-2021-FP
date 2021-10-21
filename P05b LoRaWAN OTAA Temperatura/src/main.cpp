@@ -32,6 +32,7 @@
 #include <Arduino.h>
 #include <WEMOS_SHT3X.h>
 #include <TTN_esp32.h>
+#include <SSD1306Wire.h>
 
 const char* devEui = "XXXXXXXXXXXXXXXX"; // Rellena con el Device EUI de TTN
 const char* appEui = "XXXXXXXXXXXXXXXX"; // Rellena con el Application EUI de TTN
@@ -39,11 +40,30 @@ const char* appKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // Rellena con la Applic
 
 TTN_esp32 ttn;
 SHT3X sht30(0x44);
+SSD1306Wire display(0x3c, SDA_OLED, SCL_OLED); 
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
 
+  // Reseteamos la OLED
+  pinMode(RST_OLED,OUTPUT);
+  digitalWrite(RST_OLED, LOW);     
+  delay(50);
+  digitalWrite(RST_OLED, HIGH);   
+
+  // Iniciamos OLED
+  Serial.println("Iniciando pantalla...");
+  display.init();
+  display.flipScreenVertically();
+  
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  display.setFont(ArialMT_Plain_16);
+  display.drawString(128/2, 64/2-16/2, "Iniciando...");
+  display.display();
+  delay(3000);
+
+  // Iniciamos LoRaWAN
   ttn.begin();
   ttn.join(devEui, appEui, appKey);
   Serial.print("TTN Join");
@@ -76,10 +96,22 @@ void loop() {
   
   Serial.println();
 
+  // Enviamos por LoRaWAN
   uint8_t payload[2];
   payload[0] = (uint8_t) ((sht30.cTemp + 12) * 5);
   payload[1] = (uint8_t) sht30.humidity;
 
   ttn.sendBytes(payload, 2);
+
+  // Actualizamos pantalla
+  display.clear();
+  display.setTextAlignment(TEXT_ALIGN_LEFT);
+  display.setFont(ArialMT_Plain_16);
+  display.drawString(0, 10, "  TEMP     HUM");
+  char text[32];
+  sprintf(text, " %.1f°C    %.1f%%", sht30.cTemp, sht30.humidity);
+  display.drawString(0,40, text);
+  display.display();
+
   delay(30000);
 }
