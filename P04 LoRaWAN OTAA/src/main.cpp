@@ -39,7 +39,7 @@ const char* devEui = "XXXXXXXXXXXXXXXX"; // Rellena con el Device EUI de TTN
 const char* appEui = "XXXXXXXXXXXXXXXX"; // Rellena con el Application EUI de TTN
 const char* appKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // Rellena con la Application Key de TTN
 
-TTN_esp32 ttn ;
+TTN_esp32 ttn;
 #define DOOR_SENSOR 13
 #define LED_RED 23
 #define LED_GREEN 22

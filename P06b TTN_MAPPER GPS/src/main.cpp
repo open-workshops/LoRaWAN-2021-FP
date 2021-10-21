@@ -21,9 +21,9 @@
 #include "gps.h"
 #include "oled.h"
 
-const char* devAddr = "CHANGE_ME"; // Change to TTN Device Address
-const char* nwkSKey = "CHANGE_ME"; // Change to TTN Network Session Key
-const char* appSKey = "CHANGE_ME"; // Change to TTN Application Session Key
+const char* devEui = "XXXXXXXXXXXXXXXX"; // Rellena con el Device EUI de TTN
+const char* appEui = "XXXXXXXXXXXXXXXX"; // Rellena con el Application EUI de TTN
+const char* appKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // Rellena con la Application Key de TTN
 
 TTN_esp32 ttn;
 uint8_t txBuffer[9];
