@@ -1,5 +1,5 @@
 /*******************************************************************************
-  P04: Práctica de LoRaWAN con OTAA y sensor de temperatura
+  P05b: Práctica de LoRaWAN con OTAA y sensor de temperatura
   
   Este ejemplo permite enviar datos de un sensor con activacion por OTAA
   - Inicalmente se hace un JOIN por OTAA a una red LoRaWAN
@@ -20,7 +20,12 @@
 
     # PAYLOAD FORMATER para TTN #
 
-    TODO!
+    function Decoder(bytes, port) {
+      return {
+        temperature: bytes[0] / 5.0 - 12.0,
+        humidity: bytes[1]
+      };
+    }
   
  ******************************************************************************/
 
@@ -71,9 +76,10 @@ void loop() {
   
   Serial.println();
 
-  uint8_t payload[10];
+  uint8_t payload[2];
+  payload[0] = (uint8_t) ((sht30.cTemp + 12) * 5);
+  payload[1] = (uint8_t) sht30.humidity;
 
-
-  ttn.sendBytes(payload, 7);
-  delay(60000);
+  ttn.sendBytes(payload, 2);
+  delay(30000);
 }
