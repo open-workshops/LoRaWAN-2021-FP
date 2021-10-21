@@ -27,7 +27,7 @@
     function Decoder(bytes, port) {
       // Decode plain text; for testing only 
       return {
-        myTestValue: String.fromCharCode.apply(null, bytes)
+        estadoPuerta: String.fromCharCode.apply(null, bytes)
       };
     }
   
