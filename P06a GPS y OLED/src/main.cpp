@@ -1,5 +1,5 @@
 /*******************************************************************************
-  P05A: Práctica GPS y pantalla OLED
+  P06A: Práctica GPS y pantalla OLED
   
   Este ejemplo permite obtener datos del GPS y mostrarlos en la pantalla
   -La placa está siempre leyendo el estado del GPS.

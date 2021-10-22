@@ -1,5 +1,5 @@
 /*******************************************************************************
-  P05B: Práctica TTN MAPPER GPS
+  P06B: Práctica TTN MAPPER GPS
   
   Este ejemplo mapea la cobertura de la red TTN utilizando LoRaWAN y GPS.
   -La placa está siempre leyendo el estado del GPS.
