@@ -64,7 +64,7 @@ void setup()
   Serial.begin(115200);
   setupOLED();
   setupGPS();
-  Serial.println("Starting");
+  Serial.println("Iniciando");
   ttn.begin();
   ttn.personalize(devAddr, nwkSKey, appSKey);
   ttn.setDataRate(6); //configura DataRate a 6 (SF7)
@@ -77,7 +77,7 @@ void loop()
   if (checkGPSFix())
   {
     buildGPSpacket(txBuffer);
-    Serial.println("Packet queued");
+    Serial.println("Enviando paquete LoRaWAN");
     ttn.sendBytes(txBuffer, sizeof(txBuffer));
   }
   printGPSdata();
