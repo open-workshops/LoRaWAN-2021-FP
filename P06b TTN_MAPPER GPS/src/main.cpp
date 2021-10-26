@@ -67,7 +67,7 @@ void setup()
   Serial.println("Iniciando");
   ttn.begin();
   ttn.personalize(devAddr, nwkSKey, appSKey);
-  ttn.setDataRate(6); //configura DataRate a 6 (SF7)
+  ttn.setDataRate(5); //configura DataRate a 5 (SF7)
   ttn.showStatus();
 }
 
