@@ -15,8 +15,8 @@
     Sensor de temperatura     Placa Heltec
     VIN                       3.3
     GND                       GND
-    SCL                       PIN 22
-    SDA                       PIN 21
+    SCL                       PIN 15
+    SDA                       PIN 4
 
     # PAYLOAD FORMATER para TTN #
 
