@@ -4,7 +4,7 @@
   Este ejemplo permite leer la distancia obtenida por el sensor de ultrasonidos
   - Se inicializa la pantalla OLED
   - La placa lee la distancia del sensor HC-SR04 (ultrasonidos)
-  - La distqancia obtenida se imprime por serial y en la pantalla
+  - La distancia obtenida se imprime por serial y en la pantalla
 
   Conexiones:
     Sensor de temperatura     Placa Heltec
@@ -52,8 +52,9 @@ void loop() {
   // Solicitamos la distancia al sensor
   distance = ultrasonic.read();
   
-  Serial.print("Distance in CM: ");
-  Serial.println(distance);
+  Serial.print("Distancia: ");
+  Serial.print(distance);
+  Serial.println(" cm");
 
   // Actualizamos pantalla
   display.clear();
